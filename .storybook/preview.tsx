@@ -13,7 +13,7 @@ const preview: Preview = {
   parameters: {
     layout: 'padded',
     controls: { expanded: true, sort: 'requiredFirst' },
-    options: { storySort: { order: ['Form', 'Data', '*'] } },
+    options: { storySort: { order: ['Foundation', 'Form', 'Data', '*'] } },
   },
   initialGlobals: { brand: 'ecovent', mode: 'light', lang: 'en' },
   globalTypes: {

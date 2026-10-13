@@ -30,6 +30,10 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Line: Story = {}
-export const LineMonth: Story = { args: { data: temperatureSeriesMonth } }
+export const LineMonth: Story = { args: {
+  data: temperatureSeriesMonth,
+  legend: false,
+  unit: ""
+} }
 export const Bar: Story = { render: (a) => <BarChartView {...a} data={energySeriesWeek} series={energy} /> }
 export const BarMonth: Story = { render: (a) => <BarChartView {...a} data={energySeriesMonth} series={energy} /> }

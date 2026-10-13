@@ -1,8 +1,35 @@
 /* Design tokens. White-label = swap [data-brand]; light/dark = swap [data-theme]. */
 :root {
-  --radius: 14px;
+  /* Radius */
   --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 14px;
+  --radius-full: 999px;
+  --radius: var(--radius-lg);
+
+  /* Spacing (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+
+  /* Typography */
   --font: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-md: 17px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+  --text-2xl: 30px;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
   --ok: #2e9e5b;
   --warn: #e0a100;
   --danger: #d6455d;
@@ -39,6 +66,7 @@
   --text-muted: #6b7080;
   --border: #dde0e7;
   --shadow: 0 2px 10px rgb(30 30 60 / 10%);
+  --shadow-lg: 0 10px 30px rgb(30 30 60 / 18%);
   --primary-contrast: #ffffff;
 }
 [data-theme='dark'] {
@@ -50,6 +78,7 @@
   --text-muted: #9a9fb2;
   --border: #353847;
   --shadow: 0 2px 12px rgb(0 0 0 / 45%);
+  --shadow-lg: 0 10px 30px rgb(0 0 0 / 60%);
   --primary-contrast: #ffffff;
 }
 [data-theme='dark'][data-brand='ecovent'] { --primary: #a07fcc; --primary-hover: #b393d9; --chart-1: #a07fcc; }
