@@ -31,11 +31,16 @@
   --weight-bold: 700;
 
   --radius-full: 999px;
+  --tap: 44px;
 
   --ok: #2e9e5b;
   --warn: #e0a100;
   --danger: #d6455d;
   --info: #2f80d1;
+}
+
+@media (max-width: 900px) {
+  :root { --text-3xl: 36px; --text-2xl: 28px; --text-xl: 22px; }
 }
 
 /* ---- 2. Brands ---- */

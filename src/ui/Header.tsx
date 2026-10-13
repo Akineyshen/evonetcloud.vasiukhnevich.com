@@ -113,10 +113,11 @@ export function Header({ installation }: { installation?: Installation }) {
   return (
     <header className="header">
       <Logo />
+      {installation && <span className="header__title">{installation.name}</span>}
       {installation && (
         <nav className="nav-pill" aria-label={installation.name}>
           {nav.map((n) => (
-            <NavLink key={n.to} to={`/i/${installation.id}/${n.to}`} end={n.end}>
+            <NavLink key={n.to} to={n.to ? `/i/${installation.id}/${n.to}` : `/i/${installation.id}`} end={n.end}>
               {t(n.label)}
               {n.to === 'notifications' && unread > 0 && <span className="nav-pill__count">{unread}</span>}
             </NavLink>
@@ -125,7 +126,7 @@ export function Header({ installation }: { installation?: Installation }) {
       )}
       <div className="header__spacer" />
       {installation && (
-        <Button variant="secondary" size="sm" onClick={() => navigate('/installations')}>
+        <Button variant="secondary" size="sm" className="header__leave" onClick={() => navigate('/installations')}>
           <Icon name="logout" size={16} />
           <span className="hide-mobile">{t('leave_installation')}</span>
         </Button>

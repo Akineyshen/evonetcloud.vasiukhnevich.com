@@ -3,6 +3,7 @@ import { useApp } from '../state/AppContext'
 import { Header, LanguageMenu, ThemeToggle } from '../ui/Header'
 import { Icon, type IconName } from '../ui/Icon'
 import { Button } from '../ui'
+import { BottomNav } from '../ui/BottomNav'
 import { installations } from '../data/mock'
 import type { TKey } from '../i18n'
 
@@ -65,12 +66,13 @@ export function InstallationLayout() {
   return (
     <>
       <Header installation={installation} />
-      <main className="page">
+      <main className="page page--with-nav">
         <Button variant="ghost" size="sm" className="crumb" onClick={() => navigate('/installations')}>
           <Icon name="back" size={16} /> {t('all_installations')}
         </Button>
         <Outlet context={installation} />
       </main>
+      <BottomNav installationId={installation.id} />
     </>
   )
 }

@@ -22,6 +22,7 @@ const en = {
   tb_contrast: 'Text contrast on buttons', tb_contrast_warn: 'Low contrast: text on buttons may be hard to read.',
   tb_apply: 'Apply to my account', tb_applied: 'Theme applied', tb_reset: 'Reset to default', tb_reset_done: 'Default theme restored',
   tb_export: 'Copy JSON', tb_copied: 'Copied to clipboard',
+  tab_parameters: 'Parameters',
   // header
   my_account: 'My account', logout: 'Log out', installations: 'Installations',
   leave_installation: 'Leave installation', all_installations: 'All installations',
@@ -88,6 +89,7 @@ const pl: Record<TKey, string> = {
   err_password_match: 'Hasła nie są takie same', err_terms: 'Wymagane',
   hero_title: 'Świeże powietrze pod pełną kontrolą', hero_sub: 'Monitoruj i dostosowuj każdą centralę wentylacyjną w jednym miejscu.',
   hero_f1: 'Temperatury i przepływ na żywo', hero_f2: 'Alerty, zanim pojawią się problemy', hero_f3: 'Historia energii i klimatu',
+  tab_parameters: 'Parametry',
   brand_settings: 'Ustawienia marki', tb_sub: 'Wybierz wygląd aplikacji dla swojego zespołu. Podgląd odświeża się od razu, a zmiany wchodzą w życie dopiero po zastosowaniu.',
   tb_name: 'Nazwa marki', tb_primary: 'Kolor główny', tb_accent: 'Kolor dodatkowy wykresów', tb_font: 'Krój pisma', tb_radius: 'Zaokrąglenia',
   tb_radius_sharp: 'Ostre', tb_radius_soft: 'Miękkie', tb_radius_round: 'Okrągłe', tb_surface: 'Powierzchnie', tb_surface_glass: 'Szkło', tb_surface_flat: 'Płaskie',

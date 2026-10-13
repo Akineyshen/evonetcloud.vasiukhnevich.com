@@ -15,7 +15,7 @@
   padding: 22px; display: flex; flex-direction: column; gap: 16px;
   transition: transform .18s, box-shadow .18s, border-color .18s;
 }
-.inst-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+@media (hover: hover) { .inst-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); } }
 .inst-card--fav { border-color: color-mix(in srgb, var(--primary) 50%, transparent); }
 .inst-card__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
 .inst-card__head h3 { font-size: var(--text-lg); font-weight: var(--heading-weight); line-height: 1.2; }
@@ -57,7 +57,7 @@
   .dash__row--charts { grid-template-columns: 1fr; }
   .dash__row--5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@media (max-width: 560px) { .dash__row--5 { grid-template-columns: 1fr; } }
+
 
 /* Parameters */
 .params-layout { display: grid; grid-template-columns: 220px 1fr; gap: 28px; align-items: start; }
@@ -133,3 +133,36 @@
   .tb__form { position: static; }
 }
 @media (max-width: 800px) { .tb__previews { grid-template-columns: 1fr; } }
+
+/* Mobile page tuning */
+@media (max-width: 900px) {
+  .input { font-size: 16px; } /* 16px stops iOS from zooming on focus */
+  .card { padding: 18px; }
+  .tile { padding: 18px; }
+  .tile--lg { min-height: 120px; padding: 20px; }
+  .page-title { margin-bottom: 20px; }
+  .page-title__actions { width: 100%; }
+  .page-title__actions .segmented { flex: 1; }
+  .page-title__actions .segmented button { flex: 1; padding-inline: 8px; }
+
+  .filters { gap: 8px; margin-bottom: 18px; }
+  .filters .search { flex: 1 1 100%; max-width: none; min-width: 0; }
+  .filters .field { flex: 1 1 calc(50% - 4px); min-width: 0; }
+  .filters .segmented { width: 100%; }
+  .filters .segmented button { flex: 1; }
+  .inst-grid { grid-template-columns: 1fr; gap: 14px; }
+  .inst-card { padding: 18px; }
+
+  .param, .setting-row { flex-wrap: wrap; gap: 10px; }
+  .param .field { width: 100%; min-width: 0; }
+  .params-menu { margin: 0 -16px; padding: 0 16px 4px; }
+  .notif { flex-direction: column; gap: 6px; }
+  .charts-page--full { height: calc(100dvh - 340px); min-height: 340px; }
+  .auth__card { padding: 24px; }
+  .auth { padding: 72px 16px 24px; align-items: start; }
+  .tb__actions .btn { flex: 1 1 auto; }
+}
+@media (max-width: 560px) {
+  .dash__row--5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dash__row--5 .tile:last-child { grid-column: 1 / -1; }
+}
