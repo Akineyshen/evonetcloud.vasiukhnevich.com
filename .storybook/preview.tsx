@@ -10,7 +10,11 @@ import type { Lang } from '../src/i18n'
 
 // Toolbar globals drive the same data-brand / data-theme attributes the real app uses.
 const preview: Preview = {
-  parameters: { layout: 'padded', controls: { expanded: true } },
+  parameters: {
+    layout: 'padded',
+    controls: { expanded: true, sort: 'requiredFirst' },
+    options: { storySort: { order: ['Form', 'Data', '*'] } },
+  },
   initialGlobals: { brand: 'ecovent', mode: 'light', lang: 'en' },
   globalTypes: {
     brand: {
