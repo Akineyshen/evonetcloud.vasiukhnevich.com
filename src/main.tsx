@@ -15,6 +15,7 @@ import { ParametersPage } from './pages/Parameters'
 import { ChartsPage } from './pages/Charts'
 import { NotificationsPage } from './pages/Notifications'
 import { AccountPage } from './pages/Account'
+import { ThemeBuilderPage } from './pages/ThemeBuilder'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -28,6 +29,7 @@ createRoot(document.getElementById('root')!).render(
           <Route element={<AppLayout />}>
             <Route path="/installations" element={<InstallationsPage />} />
             <Route path="/account" element={<AccountPage />} />
+            <Route path="/theme" element={<ThemeBuilderPage />} />
           </Route>
           <Route path="/i/:id" element={<InstallationLayout />}>
             <Route index element={<DashboardPage />} />

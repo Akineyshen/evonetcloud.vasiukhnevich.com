@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { applyTheme, defaultBrand, type Brand, type Mode } from '../theme/brands'
+import { themeToVars, type CustomTheme } from '../theme/custom'
 import { dictionaries, type Lang, type TKey } from '../i18n'
 
 export type Unit = 'C' | 'F'
@@ -24,6 +25,7 @@ interface Persisted {
   favorites: string[]
   readNotifications: string[]
   consents: Consents
+  customTheme: CustomTheme | null
 }
 
 const STORAGE_KEY = 'vent-app-state'
@@ -36,6 +38,7 @@ const initial: Persisted = {
   favorites: ['inst-1'],
   readNotifications: [],
   consents: { terms: true, marketing: false, analytics: true },
+  customTheme: null,
 }
 
 function load(): Persisted {
@@ -62,6 +65,7 @@ interface AppContextValue extends Persisted {
   toggleFavorite: (id: string) => void
   markRead: (ids: string[], read: boolean) => void
   setConsent: (key: keyof Consents, value: boolean) => void
+  setCustomTheme: (theme: CustomTheme | null) => void
   t: (key: TKey, vars?: Record<string, string | number>) => string
   /** Converts a Celsius value to the selected unit and formats it. */
   temp: (celsius: number, digits?: number) => string
@@ -97,6 +101,16 @@ export function AppProvider({
     document.documentElement.lang = lang
   }, [activeBrand, mode, lang])
 
+  useEffect(() => {
+    if (!state.customTheme) return
+    const vars = themeToVars(state.customTheme, mode)
+    const root = document.documentElement
+    for (const [k, v] of Object.entries(vars)) root.style.setProperty(k, v)
+    return () => {
+      for (const k of Object.keys(vars)) root.style.removeProperty(k)
+    }
+  }, [state.customTheme, mode])
+
   const patch = useCallback((p: Partial<Persisted>) => setState((s) => ({ ...s, ...p })), [])
 
   const value = useMemo<AppContextValue>(
@@ -130,6 +144,7 @@ export function AppProvider({
             ? Array.from(new Set([...s.readNotifications, ...ids]))
             : s.readNotifications.filter((n) => !ids.includes(n)),
         })),
+      setCustomTheme: (theme) => patch({ customTheme: theme }),
       setConsent: (key, v) => setState((s) => ({ ...s, consents: { ...s.consents, [key]: v } })),
       t: (key, vars) => {
         let text: string = dictionaries[lang][key] ?? key

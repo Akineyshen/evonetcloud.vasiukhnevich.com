@@ -8,11 +8,13 @@ import { Button } from '.'
 import { notifications, type Installation } from '../data/mock'
 
 export function Logo({ compact = false }: { compact?: boolean }) {
-  const { brand } = useApp()
-  const info = brandInfo(brand)
+  const { brand, customTheme } = useApp()
+  const info = customTheme ? { name: customTheme.name } : brandInfo(brand)
   return (
     <Link to="/installations" className="logo" aria-label={info.name}>
-      <span className="logo__mark"><Icon name="wind" size={22} /></span>
+      <span className="logo__mark">
+        {customTheme?.logo ? <img src={customTheme.logo} alt="" className="logo__img" /> : <Icon name="wind" size={22} />}
+      </span>
       {!compact && <span className="hide-mobile">{info.name}</span>}
     </Link>
   )
@@ -139,6 +141,7 @@ export function Header({ installation }: { installation?: Installation }) {
             </div>
             <MenuItem icon="grid" onClick={() => { navigate('/installations'); close() }}>{t('installations')}</MenuItem>
             <MenuItem icon="settings" onClick={() => { navigate('/account'); close() }}>{t('my_account')}</MenuItem>
+            <MenuItem icon="sliders" onClick={() => { navigate('/theme'); close() }}>{t('brand_settings')}</MenuItem>
             <MenuItem icon="logout" danger onClick={() => { logout(); navigate('/login') }}>{t('logout')}</MenuItem>
           </>
         )}
