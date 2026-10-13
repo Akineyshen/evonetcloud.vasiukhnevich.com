@@ -1,0 +1,58 @@
+/* Design tokens. White-label = swap [data-brand]; light/dark = swap [data-theme]. */
+:root {
+  --radius: 14px;
+  --radius-sm: 8px;
+  --font: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ok: #2e9e5b;
+  --warn: #e0a100;
+  --danger: #d6455d;
+  --info: #2f80d1;
+}
+
+/* ---- Brands (accent) ---- */
+[data-brand='ecovent'] {
+  --primary: #6a4a8c;
+  --primary-hover: #593c78;
+  --chart-1: #6a4a8c;
+  --chart-2: #2b9cff;
+}
+[data-brand='aeroflow'] {
+  --primary: #1f6fd1;
+  --primary-hover: #1859aa;
+  --chart-1: #1f6fd1;
+  --chart-2: #f08a24;
+}
+[data-brand='greenair'] {
+  --primary: #1f8a5b;
+  --primary-hover: #176d47;
+  --chart-1: #1f8a5b;
+  --chart-2: #8a5bd1;
+}
+
+/* ---- Modes (neutrals) ---- */
+[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f5f5f8;
+  --surface: #ffffff;
+  --surface-2: #eaedf1;
+  --text: #272a35;
+  --text-muted: #6b7080;
+  --border: #dde0e7;
+  --shadow: 0 2px 10px rgb(30 30 60 / 10%);
+  --primary-contrast: #ffffff;
+}
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #14151b;
+  --surface: #1f2029;
+  --surface-2: #2a2c38;
+  --text: #ecedf2;
+  --text-muted: #9a9fb2;
+  --border: #353847;
+  --shadow: 0 2px 12px rgb(0 0 0 / 45%);
+  --primary-contrast: #ffffff;
+}
+[data-theme='dark'][data-brand='ecovent'] { --primary: #a07fcc; --primary-hover: #b393d9; --chart-1: #a07fcc; }
+[data-theme='dark'][data-brand='aeroflow'] { --primary: #5a9bef; --primary-hover: #77adf2; --chart-1: #5a9bef; }
+[data-theme='dark'][data-brand='greenair'] { --primary: #43b985; --primary-hover: #5bcb98; --chart-1: #43b985; }
+[data-theme='dark'] { --primary-contrast: #101018; }
