@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { Link } from 'react-router'
 import { Icon, type IconName } from './Icon'
 import type { Tone } from '.'
 
@@ -9,7 +10,8 @@ export function Tile({
   unit,
   tone = 'neutral',
   progress,
-  wide,
+  size = 'md',
+  to,
   children,
 }: {
   icon?: IconName
@@ -19,14 +21,23 @@ export function Tile({
   tone?: Tone
   /** 0-100, renders a thin progress bar under the value. */
   progress?: number
-  wide?: boolean
+  size?: 'md' | 'lg'
+  /** Adds the corner arrow that opens the detail page. */
+  to?: string
   children?: ReactNode
 }) {
   return (
-    <section className={`tile tile--${tone} ${wide ? 'tile--wide' : ''}`}>
-      <header className="tile__label">
-        {icon && <Icon name={icon} size={18} />}
-        {label}
+    <section className={`tile tile--${tone} tile--${size}`}>
+      <header className="tile__head">
+        <span className="tile__label">
+          {icon && <Icon name={icon} size={18} />}
+          {label}
+        </span>
+        {to && (
+          <Link to={to} className="tile__arrow" aria-label={label}>
+            <Icon name="arrowUpRight" size={16} />
+          </Link>
+        )}
       </header>
       {value !== undefined && (
         <div className="tile__value">

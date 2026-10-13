@@ -1,26 +1,24 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { Link, useNavigate } from 'react-router'
+import { Link, NavLink, useNavigate } from 'react-router'
 import { useApp } from '../state/AppContext'
 import { brandInfo } from '../theme/brands'
-import type { Lang } from '../i18n'
+import type { Lang, TKey } from '../i18n'
 import { Icon, type IconName } from './Icon'
-import type { Installation } from '../data/mock'
+import { Button } from '.'
+import { notifications, type Installation } from '../data/mock'
 
-export function Logo() {
+export function Logo({ compact = false }: { compact?: boolean }) {
   const { brand } = useApp()
   const info = brandInfo(brand)
   return (
     <Link to="/installations" className="logo" aria-label={info.name}>
-      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
-        <circle cx="14" cy="14" r="13" fill="var(--primary)" />
-        <path d="M7 11h9a2.5 2.5 0 1 0-2.5-2.5M7 15h13a2.5 2.5 0 1 1-2.5 2.5M7 19h6" stroke="#fff" strokeWidth="1.8" fill="none" strokeLinecap="round" />
-      </svg>
-      <span>{info.name}</span>
+      <span className="logo__mark"><Icon name="wind" size={22} /></span>
+      {!compact && <span className="hide-mobile">{info.name}</span>}
     </Link>
   )
 }
 
-function Dropdown({ icon, label, children }: { icon: IconName; label: string; children: (close: () => void) => ReactNode }) {
+function Dropdown({ icon, label, avatar, children }: { icon?: IconName; label: string; avatar?: string; children: (close: () => void) => ReactNode }) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -40,8 +38,14 @@ function Dropdown({ icon, label, children }: { icon: IconName; label: string; ch
 
   return (
     <div className="dropdown" ref={ref}>
-      <button className="dropdown__trigger" aria-expanded={open} aria-haspopup="menu" onClick={() => setOpen((o) => !o)}>
-        <Icon name={icon} />
+      <button
+        className={`dropdown__trigger ${avatar ? 'dropdown__trigger--avatar' : ''}`}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        aria-label={label}
+        onClick={() => setOpen((o) => !o)}
+      >
+        {avatar ? <span className="avatar">{avatar}</span> : icon && <Icon name={icon} />}
         <span className="dropdown__label">{label}</span>
         <Icon name="chevron" size={16} />
       </button>
@@ -84,40 +88,49 @@ export function LanguageMenu() {
 
 export function ThemeToggle() {
   const { mode, setMode, t } = useApp()
+  const label = t(mode === 'light' ? 'theme_dark' : 'theme_light')
   return (
-    <button
-      className="icon-btn"
-      onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
-      aria-label={t(mode === 'light' ? 'theme_dark' : 'theme_light')}
-      title={t(mode === 'light' ? 'theme_dark' : 'theme_light')}
-    >
+    <button className="icon-btn" onClick={() => setMode(mode === 'light' ? 'dark' : 'light')} aria-label={label} title={label}>
       <Icon name={mode === 'light' ? 'moon' : 'sun'} />
     </button>
   )
 }
 
+const nav: { to: string; label: TKey; end?: boolean }[] = [
+  { to: '', label: 'nav_dashboard', end: true },
+  { to: 'parameters', label: 'nav_parameters' },
+  { to: 'charts', label: 'nav_charts' },
+  { to: 'notifications', label: 'nav_notifications' },
+]
+
 export function Header({ installation }: { installation?: Installation }) {
-  const { user, logout, t } = useApp()
+  const { user, logout, t, readNotifications } = useApp()
   const navigate = useNavigate()
+  const unread = notifications.filter((n) => !readNotifications.includes(n.id)).length
 
   return (
     <header className="header">
       <Logo />
       {installation && (
-        <div className="header__inst">
-          <span className="header__inst-name">
-            <Icon name="pin" size={16} /> {installation.name}
-          </span>
-          <button className="btn btn--secondary btn--sm" onClick={() => navigate('/installations')}>
-            <Icon name="logout" size={16} />
-            <span className="hide-mobile">{t('leave_installation')}</span>
-          </button>
-        </div>
+        <nav className="nav-pill" aria-label={installation.name}>
+          {nav.map((n) => (
+            <NavLink key={n.to} to={`/i/${installation.id}/${n.to}`} end={n.end}>
+              {t(n.label)}
+              {n.to === 'notifications' && unread > 0 && <span className="nav-pill__count">{unread}</span>}
+            </NavLink>
+          ))}
+        </nav>
       )}
       <div className="header__spacer" />
+      {installation && (
+        <Button variant="secondary" size="sm" onClick={() => navigate('/installations')}>
+          <Icon name="logout" size={16} />
+          <span className="hide-mobile">{t('leave_installation')}</span>
+        </Button>
+      )}
       <ThemeToggle />
       <LanguageMenu />
-      <Dropdown icon="user" label={user?.name ?? t('my_account')}>
+      <Dropdown avatar={(user?.name ?? '?').charAt(0)} label={user?.name ?? t('my_account')}>
         {(close) => (
           <>
             <div className="menu-head">

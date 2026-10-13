@@ -14,7 +14,7 @@ const meta = {
     unit: { control: 'text' },
     tone: { control: 'select', options: ['neutral', 'ok', 'warn', 'danger', 'info'] },
     progress: { control: { type: 'range', min: 0, max: 100 }, description: 'Shows a progress bar' },
-    wide: { control: 'boolean' },
+    size: { control: 'inline-radio', options: ['md', 'lg'] },
   },
   decorators: [(Story) => <div style={{ maxWidth: 280 }}><Story /></div>],
   render: function Render({ label, ...args }) {

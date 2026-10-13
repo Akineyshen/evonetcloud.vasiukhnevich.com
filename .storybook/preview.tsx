@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react-vite'
 import { MemoryRouter } from 'react-router'
+import '../src/styles/fonts'
 import '../src/styles/tokens.css'
 import '../src/styles/ui.css'
 import '../src/styles/layout.css'

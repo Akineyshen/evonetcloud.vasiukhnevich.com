@@ -12,6 +12,8 @@ const en = {
   agree_terms: 'I agree to the Terms of Service and Privacy Policy',
   err_required: 'This field is required', err_email: 'Enter a valid email', err_password_len: 'At least 8 characters',
   err_password_match: 'Passwords do not match', err_terms: 'Required',
+  hero_title: 'Fresh air, fully under control', hero_sub: 'Monitor, tune and understand every ventilation unit from one place.',
+  hero_f1: 'Live temperatures and airflow', hero_f2: 'Alerts before problems happen', hero_f3: 'Energy and climate history',
   // header
   my_account: 'My account', logout: 'Log out', installations: 'Installations',
   leave_installation: 'Leave installation', all_installations: 'All installations',
@@ -76,6 +78,8 @@ const pl: Record<TKey, string> = {
   agree_terms: 'Akceptuję Regulamin i Politykę prywatności',
   err_required: 'To pole jest wymagane', err_email: 'Podaj poprawny adres e-mail', err_password_len: 'Co najmniej 8 znaków',
   err_password_match: 'Hasła nie są takie same', err_terms: 'Wymagane',
+  hero_title: 'Świeże powietrze pod pełną kontrolą', hero_sub: 'Monitoruj i dostosowuj każdą centralę wentylacyjną w jednym miejscu.',
+  hero_f1: 'Temperatury i przepływ na żywo', hero_f2: 'Alerty, zanim pojawią się problemy', hero_f3: 'Historia energii i klimatu',
   my_account: 'Moje konto', logout: 'Wyloguj się', installations: 'Instalacje',
   leave_installation: 'Opuść instalację', all_installations: 'Wszystkie instalacje',
   theme: 'Motyw', theme_light: 'Jasny', theme_dark: 'Ciemny',

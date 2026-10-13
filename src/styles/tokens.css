@@ -1,13 +1,13 @@
-/* Design tokens. White-label = swap [data-brand]; light/dark = swap [data-theme]. */
-:root {
-  /* Radius */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 14px;
-  --radius-full: 999px;
-  --radius: var(--radius-lg);
+/*
+  Design tokens, four layers:
+  1. Foundation  - :root, shared by every brand (spacing, type scale, status colors)
+  2. Brand       - [data-brand]: typeface, corner radii, surface character, accent colors
+  3. Theme       - [data-theme]: light / dark neutrals
+  4. Derived     - computed from the layers above, re-evaluated wherever a brand is scoped
+*/
 
-  /* Spacing (4px base) */
+/* ---- 1. Foundation ---- */
+:root {
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -17,71 +17,114 @@
   --space-8: 32px;
   --space-12: 48px;
 
-  /* Typography */
-  --font: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --text-xs: 12px;
   --text-sm: 13px;
   --text-base: 15px;
   --text-md: 17px;
   --text-lg: 20px;
   --text-xl: 24px;
-  --text-2xl: 30px;
+  --text-2xl: 34px;
+  --text-3xl: 46px;
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
   --weight-bold: 700;
+
+  --radius-full: 999px;
+
   --ok: #2e9e5b;
   --warn: #e0a100;
   --danger: #d6455d;
   --info: #2f80d1;
 }
 
-/* ---- Brands (accent) ---- */
+/* ---- 2. Brands ---- */
+/* ecoVENT: light geometric type, soft pill shapes, frosted glass */
 [data-brand='ecovent'] {
+  --font: 'Outfit Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --heading-weight: 300;
+  --heading-tracking: -0.025em;
+  --radius-sm: 14px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --radius-nav: 999px;
+  --glass: 62;
+  --blur: 18px;
   --primary: #6a4a8c;
   --primary-hover: #593c78;
   --chart-1: #6a4a8c;
-  --chart-2: #2b9cff;
+  --chart-2: #e8a93a;
 }
+/* AeroFlow: technical grotesque, crisp small radii, solid flat surfaces */
 [data-brand='aeroflow'] {
+  --font: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --heading-weight: 600;
+  --heading-tracking: -0.015em;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-nav: 8px;
+  --glass: 100;
+  --blur: 0px;
   --primary: #1f6fd1;
   --primary-hover: #1859aa;
   --chart-1: #1f6fd1;
   --chart-2: #f08a24;
 }
+/* GreenAir: friendly rounded type, very round shapes, airy glass */
 [data-brand='greenair'] {
+  --font: 'Nunito Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --heading-weight: 700;
+  --heading-tracking: -0.01em;
+  --radius-sm: 20px;
+  --radius-md: 24px;
+  --radius-lg: 34px;
+  --radius-nav: 999px;
+  --glass: 55;
+  --blur: 22px;
   --primary: #1f8a5b;
   --primary-hover: #176d47;
   --chart-1: #1f8a5b;
-  --chart-2: #8a5bd1;
+  --chart-2: #e3a72f;
 }
 
-/* ---- Modes (neutrals) ---- */
+/* ---- 3. Themes ---- */
 [data-theme='light'] {
   color-scheme: light;
-  --bg: #f5f5f8;
-  --surface: #ffffff;
-  --surface-2: #eaedf1;
-  --text: #272a35;
-  --text-muted: #6b7080;
-  --border: #dde0e7;
-  --shadow: 0 2px 10px rgb(30 30 60 / 10%);
-  --shadow-lg: 0 10px 30px rgb(30 30 60 / 18%);
+  --bg: #f0f2f5;
+  --surface-base: #ffffff;
+  --text: #22252f;
+  --text-muted: #6a7082;
+  --card-border: rgb(255 255 255 / 80%);
+  --shadow: 0 8px 28px rgb(40 40 80 / 8%);
+  --shadow-lg: 0 18px 48px rgb(40 40 80 / 16%);
   --primary-contrast: #ffffff;
 }
 [data-theme='dark'] {
   color-scheme: dark;
-  --bg: #14151b;
-  --surface: #1f2029;
-  --surface-2: #2a2c38;
-  --text: #ecedf2;
-  --text-muted: #9a9fb2;
-  --border: #353847;
-  --shadow: 0 2px 12px rgb(0 0 0 / 45%);
-  --shadow-lg: 0 10px 30px rgb(0 0 0 / 60%);
-  --primary-contrast: #ffffff;
+  --bg: #101118;
+  --surface-base: #23242f;
+  --text: #eceef5;
+  --text-muted: #9ca1b5;
+  --card-border: rgb(255 255 255 / 8%);
+  --shadow: 0 8px 28px rgb(0 0 0 / 40%);
+  --shadow-lg: 0 18px 48px rgb(0 0 0 / 60%);
+  --primary-contrast: #101018;
 }
-[data-theme='dark'][data-brand='ecovent'] { --primary: #a07fcc; --primary-hover: #b393d9; --chart-1: #a07fcc; }
-[data-theme='dark'][data-brand='aeroflow'] { --primary: #5a9bef; --primary-hover: #77adf2; --chart-1: #5a9bef; }
-[data-theme='dark'][data-brand='greenair'] { --primary: #43b985; --primary-hover: #5bcb98; --chart-1: #43b985; }
-[data-theme='dark'] { --primary-contrast: #101018; }
+/* Lighter accents in dark mode. Works on <html> and on a brand scoped inside a dark page. */
+[data-theme='dark'][data-brand='ecovent'], [data-theme='dark'] [data-brand='ecovent'] { --primary: #b094d8; --primary-hover: #c3acea; --chart-1: #b094d8; }
+[data-theme='dark'][data-brand='aeroflow'], [data-theme='dark'] [data-brand='aeroflow'] { --primary: #5a9bef; --primary-hover: #77adf2; --chart-1: #5a9bef; }
+[data-theme='dark'][data-brand='greenair'], [data-theme='dark'] [data-brand='greenair'] { --primary: #43b985; --primary-hover: #5bcb98; --chart-1: #43b985; }
+
+/* ---- 4. Derived ---- */
+:root, [data-brand] {
+  --radius: var(--radius-lg);
+  --surface: color-mix(in srgb, var(--surface-base) calc(var(--glass) * 1%), transparent);
+  --surface-solid: var(--surface-base);
+  --surface-2: color-mix(in srgb, var(--text) 7%, transparent);
+  --border: color-mix(in srgb, var(--text) 12%, transparent);
+  --bg-image:
+    radial-gradient(55% 45% at 8% 0%, color-mix(in srgb, var(--primary) 20%, transparent), transparent),
+    radial-gradient(45% 40% at 100% 25%, color-mix(in srgb, var(--chart-2) 18%, transparent), transparent),
+    radial-gradient(50% 45% at 40% 100%, color-mix(in srgb, var(--primary) 12%, transparent), transparent);
+}

@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useEffect, useState } from 'react'
 import { useApp } from '../../state/AppContext'
+import { Badge, Button, Field } from '..'
+import { Tile } from '../Tile'
+import { brands } from '../../theme/brands'
 
 // Every value is read from the live CSS variables, so the page follows the brand / theme toolbar.
 const meta = {
@@ -77,8 +80,9 @@ function ColorsPage() {
 export const Colors: Story = { render: () => <ColorsPage /> }
 
 const sizes = [
+  ['--text-3xl', 'Page title'],
   ['--text-2xl', 'Display value'],
-  ['--text-xl', 'Page title'],
+  ['--text-xl', 'Section title'],
   ['--text-lg', 'Section heading'],
   ['--text-md', 'Card title'],
   ['--text-base', 'Body text, default size'],
@@ -140,13 +144,13 @@ function SpacingPage() {
 }
 export const Spacing: Story = { render: () => <SpacingPage /> }
 
-const radii = ['--radius-sm', '--radius-md', '--radius-lg', '--radius-full']
+const radii = ['--radius-sm', '--radius-md', '--radius-lg', '--radius-nav', '--radius-full']
 
 function RadiusPage() {
   const v = useResolved(radii)
   return (
     <div style={page}>
-      <Section title="Corner radius" hint="Buttons and inputs use sm, cards and tiles use lg, badges use full.">
+      <Section title="Corner radius" hint="Set per brand: sm = buttons and inputs, md = menus, lg = cards and tiles, nav = the tab pill. Switch brand in the toolbar to compare.">
         <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
           {radii.map((token) => (
             <div key={token} style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-start' }}>
@@ -177,3 +181,32 @@ function ShadowsPage() {
   )
 }
 export const Shadows: Story = { render: () => <ShadowsPage /> }
+
+// Same components rendered under each brand scope: typeface, radii and surface character differ.
+function BrandsPage() {
+  const { t, temp } = useApp()
+  return (
+    <div style={{ ...page, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', alignItems: 'start' }}>
+      {brands.map((b) => (
+        <div
+          key={b.id}
+          data-brand={b.id}
+          style={{ fontFamily: 'var(--font)', color: 'var(--text)', padding: 24, borderRadius: 'var(--radius-lg)', backgroundColor: 'var(--bg)', backgroundImage: 'var(--bg-image)', display: 'flex', flexDirection: 'column', gap: 16 }}
+        >
+          <div>
+            <div style={{ ...mono }}>{b.tagline}</div>
+            <div style={{ fontSize: 'var(--text-2xl)', fontWeight: 'var(--heading-weight)' as unknown as number, letterSpacing: 'var(--heading-tracking)' }}>{b.name}</div>
+          </div>
+          <Tile icon="thermo" label={t('tile_supply')} value={temp(20.8)} />
+          <Field label={t('email')} placeholder="you@example.com" />
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <Button>{t('save')}</Button>
+            <Button variant="secondary">{t('cancel')}</Button>
+            <Badge tone="ok">{t('conn_online')}</Badge>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+export const Brands: Story = { render: () => <BrandsPage /> }

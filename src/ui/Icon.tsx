@@ -30,6 +30,7 @@ const paths = {
   lock: 'M6 11h12v9H6zM8 11V8a4 4 0 1 1 8 0v3',
   shield: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z',
   info: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 11v6M12 7.5h0',
+  arrowUpRight: 'M7 17L17 7M8 7h9v9',
   eye: 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z',
 } as const
 
