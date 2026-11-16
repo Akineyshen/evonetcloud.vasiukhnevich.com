@@ -19,11 +19,18 @@ function useResolved(names: string[]) {
   const [values, setValues] = useState<Record<string, string>>({})
   useEffect(() => {
     // The provider applies data-brand / data-theme in its own effect, which runs after ours.
-    const id = setTimeout(() => {
+    const read = () => {
       const cs = getComputedStyle(document.documentElement)
       setValues(Object.fromEntries(names.map((n) => [n, cs.getPropertyValue(n).trim()])))
-    }, 0)
-    return () => clearTimeout(id)
+    }
+    const id = setTimeout(read, 0)
+    // The Brand builder addon writes inline variables on <html>; re-read when they change.
+    const observer = new MutationObserver(read)
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] })
+    return () => {
+      clearTimeout(id)
+      observer.disconnect()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brand, mode])
   return values
